@@ -35,11 +35,27 @@ class PlusExpr extends BinaryExpr {
     public PlusExpr(Expr e1, Expr e2) {
         super(e1, e2);
     }
+
+    public float eval() {
+	return getE1().eval() + getE2().eval();
+    }
+
+    public <R> R accept(ExprVisitor<R> v) {
+	return v.visitPlusExpr(this);
+    }
 }
 
 class MinusExpr extends BinaryExpr {
     public MinusExpr(Expr e1, Expr e2) {
         super(e1, e2);
+    }
+
+    public float eval() {
+	return getE1().eval() - getE2().eval();
+    }
+
+    public <R> R accept(ExprVisitor<R> v) {
+	return v.visitMinusExpr(this);
     }
 }
 
@@ -47,11 +63,27 @@ class TimesExpr extends BinaryExpr {
     public TimesExpr(Expr e1, Expr e2) {
         super(e1, e2);
     }
+
+    public float eval() {
+	return getE1().eval() * getE2().eval();
+    }
+
+    public <R> R accept(ExprVisitor<R> v) {
+	return v.visitTimesExpr(this);
+    }
 }
 
 class DivExpr extends BinaryExpr {
     public DivExpr(Expr e1, Expr e2) {
         super(e1, e2);
+    }
+
+    public float eval() {
+	return getE1().eval() / getE2().eval();
+    }
+
+    public <R> R accept(ExprVisitor<R> v) {
+	return v.visitDivExpr(this);
     }
 }
 
@@ -60,5 +92,12 @@ class FloatExpr extends Expr {
 
     public FloatExpr(float f) {
         this.literal = f;
+    }
+
+    public float eval() {
+	return literal;
+    }
+    public <R> R accept(ExprVisitor<R> v) {
+	return v.visitFloatExpr(this);
     }
 }
